@@ -3,3 +3,83 @@ runCase "Тест 1:" [0,1,2] [2] [(0,1), (1,2)]
 runCase "Тест 2:" [0,1,2] [1] [(0,1), (1,2), (2,2)]
 runCase "Тест 3:" [0,1,2] [2] [(0,1), (1,0), (0,2)]
 runCase "Тест 4:" [0,1,2,3] [1] [(0,1), (2,3)]
+
+// тестові дані для задачі 3 prolog
+#1#
+all_states([0, 1, 2]).
+final_state(2).
+transition(0, a, 1).
+transition(1, b, 2).
+
+#2#
+all_states([0, 1, 2]).
+final_state(1).
+transition(0, a, 1).
+transition(1, b, 2).
+transition(2, c, 2).
+
+#3#
+all_states([0, 1, 2]).
+final_state(2).
+transition(0, a, 1).
+transition(1, b, 0).
+transition(0, c, 2).
+
+#4#
+all_states([0, 1, 2, 3]).
+final_state(1).
+transition(0, a, 1).
+transition(2, b, 3).
+
+// тестові дані для задачі 4 haskell
+
+    runTestCase "Тест 1:" 
+                [('S', ["aA", "b"]), ('A', ["cS", "d"])]
+
+    runTestCase "Тест 2:" 
+                [('S', ["xA", "xB"])]
+
+    runTestCase "Тест 3:" 
+                [('S', ["Ax"]), ('A', ["a"])]
+
+    runTestCase "Тест 4:" 
+                [('S', ["xA", "y"]), ('A', ["zS", "zB"])]
+
+// тестові дані для задачі 4 prolog
+
+#1#
+non_terminal(s).
+non_terminal(a).
+terminal(a).
+terminal(b).
+terminal(c).
+terminal(d).
+rule(s, [a, a]).
+rule(s, [b]).
+rule(a, [c, s]).
+rule(a, [d]).
+
+#2#
+non_terminal(s).
+terminal(x).
+rule(s, [x, a]).
+rule(s, [x, b]).
+
+#3#
+non_terminal(s).
+non_terminal(a).
+terminal(x).
+terminal(a).
+rule(s, [a, x]).
+rule(a, [a]).
+
+#4#
+non_terminal(s).
+non_terminal(a).
+terminal(x).
+terminal(y).
+terminal(z).
+rule(s, [x, a]).
+rule(s, [y]).
+rule(a, [z, s]).
+rule(a, [z, b]).
