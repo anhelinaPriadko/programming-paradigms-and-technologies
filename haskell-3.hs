@@ -15,40 +15,24 @@ findProductive transitions current =
        then current 
        else findProductive transitions next
 
+runCase :: String -> [Int] -> [Int] -> [(Int, Int)] -> IO ()
+runCase name allStates final transitions = do
+    putStrLn $ "=== " ++ name ++ " ==="
+    putStrLn $ "ВХІДНІ ДАНІ:"
+    putStrLn $ "  Усі стани: " ++ show allStates
+    putStrLn $ "  Фінальні стани: " ++ show final
+    putStrLn $ "  Переходи: " ++ show transitions
+    let productive = findProductive transitions final
+    let nonProductive = [s | s <- allStates, s `notElem` productive]
+    putStrLn "РЕЗУЛЬТАТ:"
+    putStrLn $ "  Продуктивні: " ++ show productive
+    putStrLn $ "  Непродуктивні: " ++ show nonProductive
+    putStrLn ""
+
 main :: IO ()
 main = do
-    hSetEncoding stdout utf8
-    hSetEncoding stdin utf8
-
-    putStrLn "--- Аналіз продуктивності станів автомата ---"
-    
-    putStrLn "Введіть усі стани автомата (через пробіл):"
-    hFlush stdout
-    allStatesInput <- getLine
-    let allStates = map read (words allStatesInput) :: [Int]
-
-    putStrLn "Введіть фінальні стани (через пробіл):"
-    hFlush stdout
-    finalInput <- getLine
-    let finalStates = map read (words finalInput) :: [Int]
-
-    putStrLn "Введіть переходи у форматі 'звідки куди' (порожній рядок для завершення):"
-    hFlush stdout
-    transitions <- readTransitions
-    
-    let productive = findProductive transitions finalStates
-    let nonProductive = [s | s <- allStates, s `notElem` productive]
-
-    putStrLn "\n--- РЕЗУЛЬТАТ ---"
-    putStrLn $ "Продуктивні стани: " ++ show productive
-    putStrLn $ "Непродуктивні стани: " ++ show nonProductive
-
-readTransitions :: IO [(Int, Int)]
-readTransitions = do
-    line <- getLine
-    if null line
-        then return []
-        else do
-            let [from, to] = map read (words line)
-            rest <- readTransitions
-            return ((from, to) : rest)
+    putStrLn "ВИКОНАННЯ ТЕСТІВ (задача 3):\n"
+    runCase "Тест 1:" [0,1,2] [2] [(0,1), (1,2)]
+    runCase "Тест 2:" [0,1,2] [1] [(0,1), (1,2), (2,2)]
+    runCase "Тест 3:" [0,1,2] [2] [(0,1), (1,0), (0,2)]
+    runCase "Тест 4:" [0,1,2,3] [1] [(0,1), (2,3)]
