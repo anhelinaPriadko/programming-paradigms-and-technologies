@@ -1,11 +1,14 @@
-all_states([q0, q1, q2, q3, q4]).
+all_states([q0, q1, q2, q3, q4, q5, q6]).
 
-final_state(q4).
+final_state(q6).
 
 transition(q0, a, q1).
 transition(q1, b, q2).
-transition(q3, c, q4).
-transition(q2, d, q2).
+transition(q2, m, q3).
+transition(q3, p, q2).
+transition(q1, n, q4).
+transition(q4, c, q5).
+transition(q5, d, q6).
 
 can_reach_final(State, _) :-
     final_state(State).
@@ -21,7 +24,7 @@ is_productive(State) :-
 
 run_task :-
     all_states(States),
-    findall(S, (member(S, States), is_productive(S)), Productive),
+    findall(S, (member(S, States), once(is_productive(S))), Productive),
     findall(S, (member(S, States), \+ is_productive(S)), Unproductive),
 
     format('--- Аналіз скінченого автомату ---~n', []),
