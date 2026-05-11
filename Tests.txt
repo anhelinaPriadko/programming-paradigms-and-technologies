@@ -6,30 +6,45 @@ runCase "Тест 4:" [0,1,2,3] [1] [(0,1), (2,3)]
 
 // тестові дані для задачі 3 prolog
 #1#
-all_states([0, 1, 2]).
-final_state(2).
-transition(0, a, 1).
-transition(1, b, 2).
+all_states([q0, q1, q2, q3, q4, q5, q6]).
+final_state(q6).
+transition(q0, a, q1).
+transition(q1, b, q2).
+transition(q2, m, q3).
+transition(q3, p, q2).
+transition(q1, n, q4).
+transition(q4, c, q5).
+transition(q5, d, q6).
 
 #2#
-all_states([0, 1, 2]).
-final_state(1).
-transition(0, a, 1).
-transition(1, b, 2).
-transition(2, c, 2).
+all_states([q0, q1, q2, q3, q4, q5, q6]).
+final_state(q6).
+
+transition(q0, a, q1).
+transition(q1, b, q2).
+transition(q2, m, q3).
+transition(q3, p, q4).
+transition(q1, n, q4).
+transition(q4, c, q5).
+transition(q5, d, q6).
 
 #3#
-all_states([0, 1, 2]).
-final_state(2).
-transition(0, a, 1).
-transition(1, b, 0).
-transition(0, c, 2).
+all_states([q0, q1, q2, q3]).
+final_state(q3).
+
+transition(q0, a, q1).
+transition(q1, b, q2).
+transition(q2, m, q3).
 
 #4#
-all_states([0, 1, 2, 3]).
-final_state(1).
-transition(0, a, 1).
-transition(2, b, 3).
+all_states([q0, q1, q2, q3, q4]).
+final_state(q4).
+
+transition(q0, a, q1).
+transition(q1, b, q2).
+transition(q2, m, q4).
+transition(q1, p, q3).
+transition(q3, p, q4).
 
 // тестові дані для задачі 4 haskell
 

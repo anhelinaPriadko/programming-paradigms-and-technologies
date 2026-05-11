@@ -1,18 +1,14 @@
-all_states([q0, q1, q2, q3, q4, q5, q6]).
-
-final_state(q6).
+all_states([q0, q1, q2, q3, q4]).
+final_state(q4).
 
 transition(q0, a, q1).
 transition(q1, b, q2).
-transition(q2, m, q3).
-transition(q3, p, q2).
-transition(q1, n, q4).
-transition(q4, c, q5).
-transition(q5, d, q6).
+transition(q2, m, q4).
+transition(q1, p, q3).
+transition(q3, p, q4).
 
 can_reach_final(State, _) :-
     final_state(State).
-
 
 can_reach_final(State, Visited) :-
     transition(State, _, Next),
