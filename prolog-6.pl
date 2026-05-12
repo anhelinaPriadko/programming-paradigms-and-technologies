@@ -16,8 +16,8 @@ identify(jay)        :- bird, blue_feathers, noisy, !.
 identify(junco)      :- bird, small_size, white_belly, !.
 identify(unknown).
 
-feline :- mammal, carnivore, has_claws.
-canine :- mammal, carnivore, long_muzzle.
+feline :- mammal, carnivore, verify(has_claws).
+canine :- mammal, carnivore, verify(long_muzzle).
 bird :- verify(has_feathers), verify(lays_eggs).
 mammal :- verify(has_hair), verify(gives_milk).
 sea_creature :- verify(lives_in_water), verify(no_bones).
@@ -47,7 +47,6 @@ noisy :- verify(makes_loud_screams).
 small_size :- verify(is_smaller_than_a_hand).
 white_belly :- verify(has_white_feathers_on_belly).
 
-% Предикати запитань
 ask(Question) :-
     format('Does the animal have the following feature: ~w? (y/n) ', [Question]),
     read(Response),
