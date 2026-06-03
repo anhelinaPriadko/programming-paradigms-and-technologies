@@ -18,7 +18,6 @@ u1 x = do
     safeDiv 1 (10 * x + lx)
 
 u2 :: Double -> Maybe Double
-u2 :: Double -> Maybe Double
 u2 x = do
     lx <- safeLog10 x
     val <- safeSqrt (10 + lx)
