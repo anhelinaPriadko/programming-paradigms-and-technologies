@@ -12,7 +12,6 @@ safeDiv :: Double -> Double -> Maybe Double
 safeDiv a b | b /= 0 = Just (a / b)
             | otherwise = Nothing
 
---Унарні Maybe-функції (n = 10)
 u1 :: Double -> Maybe Double
 u1 x = do
     lx <- safeLog10 x
@@ -22,39 +21,33 @@ u2 :: Double -> Maybe Double
 u2 :: Double -> Maybe Double
 u2 x = do
     lx <- safeLog10 x
-    val <- safeSqrt (10 + lx)  -- n + lg x, де n = 10
+    val <- safeSqrt (10 + lx)
     safeDiv 1 val
 
 u3 :: Double -> Maybe Double
 u3 x = safeSqrt (x**2 - 1)
 
--- Суперпозиція u1(u2(u3(x))) 
--- do-нотація
 comp1Do :: Double -> Maybe Double
 comp1Do x = do
     res3 <- u3 x
     res2 <- u2 res3
     u1 res2
 
--- без do-нотації
 comp1Monad :: Double -> Maybe Double
 comp1Monad x = u3 x >>= u2 >>= u1
 
--- Бінарна Maybe-функція v(x, n) = sqrt(x^2 - lg n)
 v :: Double -> Double -> Maybe Double
 v x n = do
     ln <- safeLog10 n
     safeSqrt (x**2 - ln)
 
--- Суперпозиція v(u1(x), u2(x))
--- do-нотація
+
 comp2Do :: Double -> Maybe Double
 comp2Do x = do
     arg1 <- u1 x
     arg2 <- u2 x
     v arg1 arg2
 
--- без do-нотації
 comp2Monad :: Double -> Maybe Double
 comp2Monad x = u1 x >>= \a1 -> u2 x >>= \a2 -> v a1 a2
 
@@ -65,13 +58,11 @@ main = do
 
     putStrLn "--- Лабораторна робота №5: Тестування Maybe-функцій ---"
 
-    -- Зчитування аргументу x
     putStrLn "Введіть значення x (аргумент для унарних функцій):"
     hFlush stdout
     inputX <- getLine
     let x = read inputX :: Double
 
-    -- Зчитування аргументу n для бінарної функції
     putStrLn "Введіть значення n (аргумент для бінарної функції v):"
     hFlush stdout
     inputN <- getLine
